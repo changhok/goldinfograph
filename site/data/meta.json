@@ -51,14 +51,14 @@
     }
   },
   "data_hash": "7a590ee84ec9",
-  "generated": "2026-11-25T23:47:34Z",
+  "generated": "2026-11-25T23:47:54Z",
   "sources": {
     "comtrade": {
-      "last_run": "2026-11-25T23:23:41Z",
+      "last_run": "2026-11-25T23:47:48Z",
       "last_success": "2026-11-25T23:23:41Z",
-      "message": "보유 기간 2014-08 ~ 2026-09 (146개월), 남은 작업 175개월(다음 실행에서 계속) · 오늘의 호출 한도를 다 써서 멈췄습니다. 다음 실행에서 이어 받습니다",
+      "message": "UN Comtrade 가 요청을 거절했습니다(HTTP 403). COMTRADE_API_KEY 값과 'comtrade - v1' 구독 상태를 확인하세요. / 보유 기간 2014-08 ~ 2026-09 (146개월), 남은 작업 175개월(다음 실행에서 계속)",
       "mode": "key",
-      "ok": true,
+      "ok": false,
       "remaining_months": 175
     },
     "prices": {
