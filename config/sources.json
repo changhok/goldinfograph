@@ -9,7 +9,7 @@
     "commodity_codes": ["7108", "710811", "710812", "710813", "710820"],
     "flows": ["M", "X"],
     "request_pause_seconds": 1.3,
-    "max_minutes_per_run": 45,
+    "max_minutes_per_run": 100,
     "key_mode": {
       "calls_per_run": 400,
       "records_per_call_cap": 100000,
@@ -92,6 +92,17 @@
     "_설명": "World Gold Council 엑셀. gold.org(Goldhub)에서 로그인 후 내려받아 raw/wgc/ 폴더에 올리면 자동 반영된다. 파일 이름은 바꾸지 않아도 된다.",
     "folder": "raw/wgc",
     "page": "https://www.gold.org/goldhub/data/gold-reserves-by-country"
+  },
+
+  "prices": {
+    "_설명": "월평균 금 가격(달러/온스). 1960년 이후는 세계은행 원자재 가격 자료이며 공개 데이터셋이 매일 갱신한다.",
+    "url": "https://raw.githubusercontent.com/datasets/gold-prices/main/data/monthly.csv"
+  },
+
+  "live_chart": {
+    "_설명": "화면 위쪽 실시간 시세 그래프(TradingView 무료 위젯)에 쓰는 종목 기호. 사이트의 assets/live.js 가 읽는다.",
+    "global": "OANDA:XAUUSD",
+    "korea": "FX_IDC:XAUKRW"
   },
 
   "site": {

@@ -22,10 +22,12 @@
       <a href="#flows" data-view="flows">교역 흐름</a>
       <a href="#country" data-view="country">국가별</a>
       <a href="#swiss" data-view="swiss">스위스</a>
-      <a href="#status" data-view="status">자료 현황</a>
+      <a href="#status" data-view="status" data-admin hidden>자료 현황</a>
     </nav>
     <p class="updated" id="updated"></p>
   </header>
+
+  <section id="live" class="live" aria-label="실시간 금 시세"></section>
 
   <main id="view" tabindex="-1">
     <p class="loading">자료를 불러오는 중입니다…</p>
@@ -34,7 +36,7 @@
   <footer class="colophon">
     <p>자료: World Gold Council(보유량), UN Comtrade(국가 간 교역, HS 7108), 스위스 관세청 BAZG(스위스 교역).
       수치는 각 기관의 발표를 그대로 옮긴 것이며 발표 이후 수정될 수 있습니다.</p>
-    <p><a href="#status">갱신 상태와 자료 읽는 법</a></p>
+    <p>실시간 시세 그래프는 TradingView 가 제공하며 이 사이트의 월간 자료와는 따로 갱신됩니다. 월평균 금 가격은 세계은행 원자재 가격 자료입니다.</p>
   </footer>
 
   <script src="vendor/echarts.min.js"></script>

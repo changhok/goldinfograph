@@ -1,5 +1,6 @@
 // 시작점: 공통 자료를 불러오고, 주소(#reserves, #flows, #country/KOR …)에 맞는 화면을 그린다.
 import { disposeCharts, ensureWorldMap, getJSON, h, setDataVersion } from "./lib.js";
+import { mountLive } from "./live.js";
 
 const VIEWS = {
   reserves: () => import("./views/reserves.js"),
@@ -14,8 +15,22 @@ let ctx = null;
 let cleanup = null;
 let token = 0;
 
+// 관리자 모드: 주소 끝에 #admin 을 붙여 열면 '자료 현황' 탭이 보이고, #admin-off 로 다시 숨긴다.
+// (자료 자체는 공개 정보라 보안 장치가 아니라, 일반 방문자에게 운영 화면을 보이지 않게 하는 용도)
+const isAdmin = () => { try { return localStorage.getItem("gold-admin") === "1"; } catch { return false; } };
+function applyAdmin() {
+  document.querySelectorAll("[data-admin]").forEach((a) => { a.hidden = !isAdmin(); });
+}
+
 async function route() {
-  const [name, param] = (location.hash.replace(/^#\/?/, "") || "reserves").split("/");
+  let [name, param] = (location.hash.replace(/^#\/?/, "") || "reserves").split("/");
+  if (name === "admin" || name === "admin-off") {
+    try { if (name === "admin") localStorage.setItem("gold-admin", "1"); else localStorage.removeItem("gold-admin"); } catch { /* 무시 */ }
+    applyAdmin();
+    location.hash = name === "admin" && isAdmin() ? "#status" : "#reserves";
+    return;
+  }
+  if (name === "status" && !isAdmin()) name = "reserves";
   const view = VIEWS[name] ? name : "reserves";
   document.querySelectorAll(".tabs a").forEach((a) =>
     (a.dataset.view === view ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
@@ -52,6 +67,8 @@ async function boot() {
   };
   const when = (meta.generated || "").slice(0, 10);
   document.getElementById("updated").textContent = when ? `자료 갱신 ${when}` : "";
+  applyAdmin();
+  getJSON("prices.json").then((p) => mountLive(document.getElementById("live"), p.live || {})).catch(() => {});
   window.addEventListener("hashchange", route);
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", route);   // 밝기 바뀌면 차트 색도 다시
   route();

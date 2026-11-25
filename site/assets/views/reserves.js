@@ -3,7 +3,7 @@ import { dataTable, deltaCell, fmt, geoOption, getJSON, h, latestAt, makeChart, 
   timeOption, tipRow, tooltipBase } from "../lib.js";
 
 export async function render(root, ctx) {
-  const data = await getJSON("reserves.json");
+  const [data, prices] = await Promise.all([getJSON("reserves.json"), getJSON("prices.json").catch(() => ({ months: [], usd: [] }))]);
   if (!data.months.length) {
     root.append(emptyNotice(ctx, data));
     return {};
@@ -56,6 +56,10 @@ export async function render(root, ctx) {
   const tl = timeline(months, state.i, (i) => { state.i = i; update(); });
   const tableBox = h("div", {});
   const worldEl = h("div", { class: "chart" });
+  const priceEl = h("div", { class: "chart" });
+  // 월평균 금 가격을 보유량과 같은 달 축에 맞춘다 (같은 위치에 기준 월 표시선이 서도록)
+  const priceAt = Object.fromEntries(prices.months.map((m, k) => [m, prices.usd[k]]));
+  const priceSeries = months.map((m) => priceAt[m] ?? null);
   const momEl = h("div", { class: "chart tall" });
   const ytdEl = h("div", { class: "chart tall" });
   const momTitle = h("p", {});
@@ -73,13 +77,15 @@ export async function render(root, ctx) {
       h("section", { class: "panel" },
         h("header", {}, h("h2", {}, "국가별 순위"), h("p", {}, "나라 이름을 누르면 상세 화면으로 갑니다")),
         h("div", { class: "body" }, tableBox))),
-    h("div", { class: "grid3" },
+    h("div", { class: "grid2" },
       h("section", { class: "panel" }, h("header", {}, h("h2", {}, "세계 공식 금 보유량 합계"), h("p", {}, "톤")), h("div", { class: "body" }, worldEl)),
+      h("section", { class: "panel" }, h("header", {}, h("h2", {}, "금 가격"), h("p", {}, "월평균, 달러 / 트로이온스")), h("div", { class: "body" }, priceEl))),
+    h("div", { class: "grid2" },
       h("section", { class: "panel" }, h("header", {}, h("h2", {}, "이달에 많이 사고판 곳"), momTitle), h("div", { class: "body" }, momEl)),
       h("section", { class: "panel" }, h("header", {}, h("h2", {}, "올해 들어 많이 사고판 곳"), ytdTitle), h("div", { class: "body" }, ytdEl))),
     h("p", { class: "note" }, noteText(ctx)));
 
-  let map, worldChart, momChart, ytdChart, table;
+  let map, worldChart, priceChart, momChart, ytdChart, table;
 
   function rows(i) {
     return holders.map((c) => ({ code: c, name: ctx.name(c), level: level(c, i), mom: mom(c, i), ytd: ytd(c, i),
@@ -129,6 +135,7 @@ export async function render(root, ctx) {
 
     // 세계 합계: 선택한 달 표시만 옮긴다
     worldChart.setOption({ series: [{ markLine: { data: [{ xAxis: months[i] }] } }] });
+    if (priceChart) priceChart.setOption({ series: [{ markLine: { data: [{ xAxis: months[i] }] } }] });
 
     // 이달·연초 대비 상위
     const movers = (key) => {
@@ -164,6 +171,13 @@ export async function render(root, ctx) {
       worldChart = makeChart(worldEl);
       worldChart.setOption(timeOption(th, months, [{ name: "세계 합계", data: world, color: th.gold, area: true }],
         { markMonth: months[state.i], zeroBased: false, axisFmt: (v) => fmt.n(v, 0) }));
+      if (priceSeries.some((v) => v != null)) {
+        priceChart = makeChart(priceEl);
+        priceChart.setOption(timeOption(th, months, [{ name: "금 가격", data: priceSeries, color: th.s1, area: true }],
+          { markMonth: months[state.i], valueFmt: (v) => "$" + fmt.n(v, 0), axisFmt: (v) => fmt.n(v, 0) }));
+      } else {
+        priceEl.replaceWith(h("p", { class: "note" }, "금 가격 자료가 아직 없습니다."));
+      }
       momChart = makeChart(momEl);
       ytdChart = makeChart(ytdEl);
       update();

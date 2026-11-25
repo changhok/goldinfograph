@@ -1,5 +1,12 @@
 {
   "data": {
+    "prices": {
+      "available": true,
+      "months": [
+        "1970-01",
+        "2026-10"
+      ]
+    },
     "reserves": {
       "available": true,
       "change_months": [
@@ -43,8 +50,8 @@
       "rows": 253763
     }
   },
-  "data_hash": "fb56bb7ec034",
-  "generated": "2026-11-25T13:46:04Z",
+  "data_hash": "018ab4e18ed5",
+  "generated": "2026-11-25T23:21:57Z",
   "sources": {
     "comtrade": {
       "last_run": "2026-11-25T13:46:00Z",
@@ -53,6 +60,12 @@
       "mode": "key",
       "ok": true,
       "remaining_months": 178
+    },
+    "prices": {
+      "last_run": "2026-11-25T23:21:54Z",
+      "last_success": "2026-11-25T23:21:54Z",
+      "message": "월평균 금 가격 1950-01 ~ 2026-10 (922개월)",
+      "ok": true
     },
     "swiss": {
       "last_run": "2026-11-25T08:36:58Z",

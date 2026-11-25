@@ -315,13 +315,28 @@ def build_swiss(countries: Countries, cfg: dict) -> dict:
             "has_keys": bool(by_key), "unknown_partners": len(unknown)}
 
 
+# ================================================================ 금 가격·실시간 그래프 설정
+def build_prices(cfg: dict) -> dict:
+    path = STORE / "prices" / "monthly.csv"
+    months, usd = [], []
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines()[1:]:
+            m, v = line.split(",")
+            if m >= "1970-01":
+                months.append(m)
+                usd.append(float(v))
+    write_json(SITE_DATA / "prices.json", {"months": months, "usd": usd, "live": {
+        k: v for k, v in cfg.get("live_chart", {}).items() if not k.startswith("_")}})
+    return {"available": bool(months), "months": [months[0], months[-1]] if months else None}
+
+
 def main() -> int:
     cfg = load_config()
     countries = Countries()
     SITE_DATA.mkdir(parents=True, exist_ok=True)
 
     info = {"reserves": build_reserves(countries), "trade": build_trade(countries, cfg),
-            "swiss": build_swiss(countries, cfg)}
+            "swiss": build_swiss(countries, cfg), "prices": build_prices(cfg)}
 
     table = {c["iso3"]: {"ko": c["ko"], "en": c["en"], "lat": round(c["lat"], 2), "lon": round(c["lon"], 2),
                          "num": f"{c['m49']:03d}" if c.get("m49") is not None else None}

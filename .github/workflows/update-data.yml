@@ -1,12 +1,12 @@
 name: 자료 갱신
 
 # 언제 실행되나
-#  - 매일 새벽(한국 시간 04:23): UN Comtrade 이어받기·갱신, 스위스 자료(6일 이상 지났을 때만), WGC 엑셀 다시 읽기
+#  - 매달 5일·20일 새벽(한국 시간 04:23): UN Comtrade·스위스·금 가격 갱신 (자료가 월 단위라 자주 돌 필요가 없다)
 #  - raw/wgc/ 에 엑셀을 올렸을 때, 설정·수집 코드를 고쳤을 때
 #  - Actions 화면에서 "Run workflow" 를 눌렀을 때
 on:
   schedule:
-    - cron: "23 19 * * *"
+    - cron: "23 19 4,19 * *"
   push:
     branches: [main]
     paths:
@@ -17,8 +17,8 @@ on:
   workflow_dispatch:
     inputs:
       sources:
-        description: "받을 출처 (쉼표로 구분: wgc, comtrade, swiss)"
-        default: "wgc,comtrade,swiss"
+        description: "받을 출처 (쉼표로 구분: wgc, prices, comtrade, swiss)"
+        default: "wgc,prices,comtrade,swiss"
         type: string
       full_refresh:
         description: "이미 받은 자료도 처음부터 다시 받기"
@@ -38,6 +38,8 @@ jobs:
     timeout-minutes: 150
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main   # 실행을 부른 시점이 아니라 지금의 최신 상태에서 시작한다 (앞선 실행이 저장한 자료를 이어받기 위해)
 
       - uses: actions/setup-python@v5
         with:
@@ -52,7 +54,7 @@ jobs:
         env:
           COMTRADE_API_KEY: ${{ secrets.COMTRADE_API_KEY }}
           PYTHONUNBUFFERED: "1"   # 진행 상황이 로그에 바로 찍히도록 (중간에 끊겨도 기록이 남는다)
-          SOURCES: ${{ inputs.sources || 'wgc,comtrade,swiss' }}
+          SOURCES: ${{ inputs.sources || 'wgc,prices,comtrade,swiss' }}
           FULL: ${{ inputs.full_refresh && '--full-refresh' || '' }}
         run: python pipeline/run_all.py --only "$SOURCES" $FULL
 

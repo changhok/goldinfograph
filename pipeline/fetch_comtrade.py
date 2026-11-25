@@ -49,6 +49,7 @@ class Client:
         self.deadline = time.monotonic() + 60 * float(cfg.get("max_minutes_per_run", 45))
         self.timed_out = False
         self.rate_limited = 0
+        self.calls_ok = 0
         self.cap = cfg["key_mode" if key else "preview_mode"]["records_per_call_cap"]
 
     def get(self, period: str, reporters: list[int] | None, flows: list[str], cmds: list[str]) -> list[dict]:
@@ -90,6 +91,10 @@ class Client:
                 # 키 없는 미리보기는 일정량을 쓰면 서버가 403 으로 막는다. 오류가 아니라 '오늘은 여기까지'로 본다.
                 self.throttled = f"HTTP 403: {r.text[:160].strip()}"
                 raise BudgetExhausted()
+            if r.status_code == 403 and self.calls_ok > 0:
+                # 방금까지 되던 키가 막혔다면 키 문제가 아니라 하루 호출 한도(무료 500회)를 다 쓴 것이다
+                self.throttled = "오늘의 호출 한도 소진"
+                raise BudgetExhausted()
             if r.status_code in (401, 403):
                 raise PermissionError(
                     f"UN Comtrade 가 요청을 거절했습니다(HTTP {r.status_code}). "
@@ -102,6 +107,7 @@ class Client:
             if r.status_code != 200:
                 raise RuntimeError(f"HTTP {r.status_code}: {r.text[:200]}")
             time.sleep(self.pause)
+            self.calls_ok += 1
             body = r.json()
             if body.get("error"):
                 raise RuntimeError(f"UN Comtrade 오류 응답: {str(body['error'])[:200]}")
@@ -315,7 +321,8 @@ def main() -> int:
     if remaining:
         msg += f", 남은 작업 {remaining}개월(다음 실행에서 계속)"
     if client.throttled and not error:
-        msg += " · 무료 미리보기 호출 한도에 걸려 멈췄습니다. 다음 실행에서 이어 받습니다(키를 등록하면 한도가 크게 늘어납니다)"
+        msg += (" · 오늘의 호출 한도를 다 써서 멈췄습니다. 다음 실행에서 이어 받습니다" if key else
+                " · 무료 미리보기 호출 한도에 걸려 멈췄습니다. 다음 실행에서 이어 받습니다(키를 등록하면 한도가 크게 늘어납니다)")
         print(f"  서버 응답: {client.throttled}")
     if error:
         update_status("comtrade", False, f"{error} / {msg}", mode=mode, remaining_months=remaining)
