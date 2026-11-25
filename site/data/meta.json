@@ -43,23 +43,23 @@
       "available": true,
       "mode": "key",
       "months": [
-        "2014-11",
+        "2014-08",
         "2026-09"
       ],
       "reporters": 156,
-      "rows": 253763
+      "rows": 258364
     }
   },
-  "data_hash": "018ab4e18ed5",
-  "generated": "2026-11-25T23:21:57Z",
+  "data_hash": "2b161d3f766f",
+  "generated": "2026-11-25T23:23:45Z",
   "sources": {
     "comtrade": {
-      "last_run": "2026-11-25T13:46:00Z",
-      "last_success": "2026-11-25T13:46:00Z",
-      "message": "보유 기간 2014-11 ~ 2026-09 (143개월), 남은 작업 178개월(다음 실행에서 계속)",
+      "last_run": "2026-11-25T23:23:41Z",
+      "last_success": "2026-11-25T23:23:41Z",
+      "message": "보유 기간 2014-08 ~ 2026-09 (146개월), 남은 작업 175개월(다음 실행에서 계속) · 오늘의 호출 한도를 다 써서 멈췄습니다. 다음 실행에서 이어 받습니다",
       "mode": "key",
       "ok": true,
-      "remaining_months": 178
+      "remaining_months": 175
     },
     "prices": {
       "last_run": "2026-11-25T23:21:54Z",
