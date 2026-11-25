@@ -102,7 +102,7 @@
   "live_chart": {
     "_설명": "화면 위쪽 실시간 시세 그래프(TradingView 무료 위젯)에 쓰는 종목 기호. 사이트의 assets/live.js 가 읽는다.",
     "global": "OANDA:XAUUSD",
-    "korea": "FX_IDC:XAUKRW"
+    "korea": "XAUKRWUSDT.P"
   },
 
   "site": {

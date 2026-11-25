@@ -25,7 +25,7 @@ function widget(symbol, dark) {
 export function mountLive(el, symbols) {
   const panes = [
     { key: "global", title: "국제 금 시세", unit: "달러 / 트로이온스", symbol: symbols.global || "OANDA:XAUUSD" },
-    { key: "korea", title: "원화 금 시세", unit: "원 / 트로이온스 (1돈 = 3.75g ≈ 온스의 12.06%)", symbol: symbols.korea || "FX_IDC:XAUKRW" },
+    { key: "korea", title: "원화 금 시세", unit: "원화 기준", symbol: symbols.korea || "XAUKRWUSDT.P" },
   ];
   let open = store.get("gold-live-open", "1") === "1";
   let pinned = store.get("gold-live-pin", "0") === "1";
