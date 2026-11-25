@@ -1,0 +1,41 @@
+{
+  "mode": "preview",
+  "months": {
+    "202606": {
+      "fetched": "2026-11-25",
+      "mode": "preview-partial",
+      "reporters_done": [
+        156,
+        344,
+        699,
+        702,
+        757,
+        764,
+        784,
+        792,
+        826,
+        842
+      ]
+    },
+    "202607": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 838
+    },
+    "202608": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 705
+    },
+    "202609": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 234
+    },
+    "202610": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 0
+    }
+  }
+}
