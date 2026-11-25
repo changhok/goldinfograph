@@ -8,18 +8,25 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch { /* 저장이 막힌 브라우저에서는 기억만 못 할 뿐 동작은 한다 */ } },
 };
 
+// 그래프 높이(픽셀): 화면 높이의 60%, 최소 460 ~ 최대 720
+const chartHeight = () => Math.round(Math.max(460, Math.min(720, window.innerHeight * 0.6)));
+
 function widget(symbol, dark) {
-  const box = h("div", { class: "tradingview-widget-container" }, h("div", { class: "tradingview-widget-container__widget" }));
+  // 위젯 스크립트가 자기 틀의 크기를 마음대로 바꾸므로, 높이가 고정된 바깥 상자(live-frame) 안에 넣고
+  // 위젯에도 같은 높이를 숫자로 알려 준다. 이렇게 해야 그래프가 상자 밖으로 삐져나오지 않는다.
+  const px = chartHeight();
+  const inner = h("div", { class: "tradingview-widget-container", style: "width:100%;height:100%" },
+    h("div", { class: "tradingview-widget-container__widget", style: "width:100%;height:100%" }));
   const s = document.createElement("script");
   s.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
   s.async = true;
   s.text = JSON.stringify({
-    autosize: true, symbol, interval: "60", timezone: "Asia/Seoul", theme: dark ? "dark" : "light", style: "1", locale: "kr",
+    width: "100%", height: px, symbol, interval: "60", timezone: "Asia/Seoul", theme: dark ? "dark" : "light", style: "1", locale: "kr",
     allow_symbol_change: true, hide_side_toolbar: true, withdateranges: true, save_image: false, calendar: false,
     support_host: "https://www.tradingview.com",
   });
-  box.append(s);
-  return box;
+  inner.append(s);
+  return h("div", { class: "live-frame", style: `height:${px}px` }, inner);
 }
 
 export function mountLive(el, symbols) {
