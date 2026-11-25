@@ -1,21 +1,105 @@
 {
   "mode": "preview",
   "months": {
+    "202411": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1142
+    },
+    "202412": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1081
+    },
+    "202501": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1043
+    },
+    "202502": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1069
+    },
+    "202503": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1093
+    },
+    "202504": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1101
+    },
+    "202505": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1079
+    },
+    "202506": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1088
+    },
+    "202507": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1090
+    },
+    "202508": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1023
+    },
+    "202509": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1062
+    },
+    "202510": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1082
+    },
+    "202511": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1107
+    },
+    "202512": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 1074
+    },
+    "202601": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 939
+    },
+    "202602": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 986
+    },
+    "202603": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 998
+    },
+    "202604": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 902
+    },
+    "202605": {
+      "fetched": "2026-11-25",
+      "mode": "preview",
+      "rows": 898
+    },
     "202606": {
       "fetched": "2026-11-25",
-      "mode": "preview-partial",
-      "reporters_done": [
-        156,
-        344,
-        699,
-        702,
-        757,
-        764,
-        784,
-        792,
-        826,
-        842
-      ]
+      "mode": "preview",
+      "rows": 828
     },
     "202607": {
       "fetched": "2026-11-25",
