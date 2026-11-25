@@ -28,12 +28,15 @@ Cloudflare 대시보드 → **Workers & Pages** → **Create** → **Pages** →
 
 키가 없어도 주요 30개국의 최근 2년 치는 받습니다. 키를 등록하면 전 세계·2000년부터 전체를 받습니다.
 
-1. <https://comtradedeveloper.un.org> 에서 가입(Sign up)합니다.
-2. **Products** → **comtrade - v1** (무료) → **Subscribe**.
-3. **Profile** 에서 **Primary key** 를 복사합니다.
-4. 이 저장소 → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
+1. <https://comtrade.un.org> 오른쪽 위 **Login** → **Sign-up now** 로 가입합니다 (이메일 인증 코드 입력 후 **Create**).
+2. 로그인한 상태에서 <https://comtrade.un.org/en/api-portal> (오른쪽 위 **My Comtrade** → **My API Portal**)을 엽니다.
+3. **Generate API Key** 를 누르고, 나온 키를 복사합니다.
+4. <https://github.com/changhok/goldinfograph/settings/secrets/actions/new> 를 엽니다
+   (저장소 → **Settings** → **Secrets and variables** → **Actions** → **New repository secret** 과 같은 화면).
    - Name: `COMTRADE_API_KEY`
    - Secret: 복사한 키
+   - **Add secret** 을 누릅니다.
+5. 저장소 → **Actions** → 왼쪽 **자료 갱신** → 오른쪽 **Run workflow** 로 바로 실행하거나, 다음 날 새벽 자동 실행을 기다립니다.
 
 무료 키는 하루 500회 호출 제한이 있습니다. 한 번 실행에 최대 400회를 쓰므로 2000년부터의 과거 자료(약 320개월)는 한두 번의 실행으로 채워집니다.
 
