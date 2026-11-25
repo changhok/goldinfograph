@@ -1,6 +1,8 @@
 // 자료 현황 화면: 출처별 갱신 상태, 보유 기간, 파일 인식 결과, 자료 읽는 법.
 import { fmt, h } from "../lib.js";
 
+// 저장소의 raw/wgc 폴더로 바로 가는 GitHub 올리기 화면 (GitHub 로그인 필요)
+const UPLOAD_URL = "https://github.com/changhok/goldinfograph/upload/main/raw/wgc";
 const day = (s) => (s ? s.slice(0, 10) : "–");
 const span = (a) => (a ? `${fmt.month(a[0])} ~ ${fmt.month(a[1])}` : "–");
 
@@ -19,6 +21,15 @@ export async function render(root, ctx) {
   root.append(
     h("div", { class: "lede" }, h("h1", {}, "자료 현황"),
       h("p", {}, "세 출처의 자료가 언제, 어디까지 들어왔는지 보여 줍니다. 문제가 생기면 여기에 원인이 적힙니다.")),
+    h("div", { class: "notice upload" },
+      h("h2", {}, "WGC 엑셀 올리기"),
+      h("p", {}, "매달 10일 무렵 새 파일이 나옵니다. 아래 두 버튼을 차례로 누르면 됩니다."),
+      h("ol", {},
+        h("li", {}, h("a", { class: "bigbtn", href: meta.wgc_page, target: "_blank", rel: "noopener" }, "① gold.org 에서 엑셀 내려받기"),
+          h("span", { class: "muted" }, " Changes · Quarterly · World official gold holdings 세 파일")),
+        h("li", {}, h("a", { class: "bigbtn", href: UPLOAD_URL, target: "_blank", rel: "noopener" }, "② 올리는 화면 열기"),
+          h("span", { class: "muted" }, " 열린 화면에 파일을 끌어다 놓고 초록색 Commit changes 버튼을 누릅니다")),
+        h("li", {}, "3~5분 뒤 이 화면을 새로 고침 하면 아래 ‘올린 파일’과 ‘보유 기간’이 바뀝니다."))),
     h("div", { class: "status stack" },
       section("금 보유량 — World Gold Council 엑셀", S.wgc, [
         ["보유 기간", D.reserves && D.reserves.available ? span(D.reserves.months) : "자료 없음"],

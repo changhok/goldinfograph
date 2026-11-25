@@ -226,3 +226,9 @@ tbody tr:hover { background: var(--page); }
 .narrow-only { display: none; }
 @media (max-width: 900px) { .narrow-only { display: inline-flex; } }
 [hidden] { display: none !important; }
+
+/* 자료 현황의 엑셀 올리기 안내 */
+.notice.upload { margin-bottom: 16px; max-width: none; }
+.notice.upload li { margin: 8px 0; }
+.bigbtn { display: inline-block; padding: 9px 18px; border-radius: 6px; background: var(--ink); color: var(--surface); text-decoration: none; font-weight: 600; }
+.bigbtn:hover { opacity: .88; }
