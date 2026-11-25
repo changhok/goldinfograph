@@ -48,6 +48,7 @@ class Client:
         # 한 번 실행이 너무 길어지지 않게 시간 한도를 둔다. 넘으면 받은 만큼 저장하고 다음 실행에서 이어 받는다.
         self.deadline = time.monotonic() + 60 * float(cfg.get("max_minutes_per_run", 45))
         self.timed_out = False
+        self.rate_limited = 0
         self.cap = cfg["key_mode" if key else "preview_mode"]["records_per_call_cap"]
 
     def get(self, period: str, reporters: list[int] | None, flows: list[str], cmds: list[str]) -> list[dict]:
@@ -70,14 +71,16 @@ class Client:
             self.calls_left -= 1
             self.calls_made += 1
             try:
-                r = self.session.get((os.environ.get("COMTRADE_BASE_URL") or self.cfg["base_url"]) + path, params=params, headers=headers, timeout=120)
+                r = self.session.get((os.environ.get("COMTRADE_BASE_URL") or self.cfg["base_url"]) + path,
+                                     params=params, headers=headers, timeout=(30, 180))
             except requests.RequestException as e:
                 if attempt == 3:
                     raise RuntimeError(f"연결 실패: {e}") from e
                 time.sleep(5 * (attempt + 1))
                 continue
             if r.status_code == 429:
-                wait = min(int(r.headers.get("Retry-After", "20") or 20), 90) + 2
+                wait = min(int(r.headers.get("Retry-After", "20") or 20), 30) + 2
+                self.rate_limited += 1
                 if attempt == 3 or self.calls_left <= 0:
                     raise BudgetExhausted()
                 print(f"  호출 제한(429) — {wait}초 대기")
@@ -242,8 +245,9 @@ def main() -> int:
     old_edge = add_months(f"{today().year:04d}-{today().month:02d}", -13)
     todo = plan_months(cfg, state, bool(key), conf["start_year"], args.full_refresh)
     print(f"UN Comtrade 수집 시작 — 방식: {'키(전체)' if key else '미리보기(주요국·최근)'}, "
-          f"대상 {len(todo)}개월, 호출 한도 {client.calls_left}회")
+          f"대상 {len(todo)}개월, 호출 한도 {client.calls_left}회", flush=True)
     done, error = 0, None
+    started = time.monotonic()
     try:
         for month in todo:
             period = month.replace("-", "")
@@ -283,6 +287,9 @@ def main() -> int:
                 rows = {k: 1 for k in store._load(period[:4]) if k[0] == period}
             state["months"][period] = {"fetched": str(today()), "mode": mode, "rows": len(rows)}
             done += 1
+            # 달마다 한 줄씩 남겨 두면 실행이 중간에 끊겨도 어디까지, 얼마나 빨리 갔는지 로그로 알 수 있다
+            print(f"  {month}: {len(rows):,}행, 누적 {time.monotonic() - started:,.0f}초, 호출 {client.calls_made}회"
+                  + (f", 429 응답 {client.rate_limited}회" if client.rate_limited else ""), flush=True)
             if done % 12 == 0:
                 store.save()
                 write_json(STATE, state, pretty=True)
