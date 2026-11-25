@@ -93,6 +93,7 @@ export async function render(root, ctx) {
           itemStyle: { color: th.ink, borderColor: th.surface, borderWidth: 1.5 },
           label: { show: true, formatter: (p) => (p.data.code === CH || labelled.has(p.data.code) ? p.name : ""), position: "right", color: th.ink,
             fontSize: 12, textBorderColor: th.surface, textBorderWidth: 3 },
+          labelLayout: { hideOverlap: true },
           tooltip: { formatter: (p) => `<div class="tip"><b>${p.name}</b></div>` } },
       ],
     });

@@ -231,6 +231,10 @@ def build_swiss(countries: Countries, cfg: dict) -> dict:
     imp = read_csv_gz(d / "imports.csv.gz")
     exp = read_csv_gz(d / "exports.csv.gz")
     keys = read_csv_gz(d / "gold_import_keys.csv.gz")
+    # 스위스는 2012년부터 금괴를 국가별 통계에 넣었다. 그 전의 7108 수치는 일부 품목뿐이라 제외한다.
+    start = cfg["swiss"].get("start_month")
+    if start:
+        imp, exp, keys = ([r for r in rows if r["period"] >= start] for rows in (imp, exp, keys))
     if not imp and not exp and keys:
         imp = keys            # 전체 수입 파일이 없으면 통계키 파일의 합으로 대신한다
     if not imp and not exp and not keys:

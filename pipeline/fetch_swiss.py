@@ -43,6 +43,7 @@ COLUMN_HINTS = {
     "chf": [r"^chf$", r"valuechf", r"^value$", r"^wert$", r"chf", r"value", r"wert", r"valeur"],
     "kg": [r"^kg$", r"netmass", r"^mass$", r"^weight$", r"quantitykg", r"massekg", r"kg", r"mass", r"weight",
            r"menge", r"quantity"],
+    "key_name": [r"controlcodetxt", r"controlcodetext", r"controlcodedesc"],
     "flow": [r"trafficdirection", r"direction", r"verkehrsrichtung", r"^flow$"],
 }
 
@@ -96,6 +97,7 @@ class GoldFilter:
         self.lines = 0
         self.kept = 0
         self.bad_period = 0
+        self.key_labels: dict[str, str] = {}
 
     def feed_header(self, raw: bytes) -> None:
         line = raw.decode("utf-8-sig", errors="replace").rstrip("\r\n")
@@ -130,6 +132,8 @@ class GoldFilter:
             key = re.sub(r"\D", "", row[c["key"]])
         elif len(re.sub(r"\D", "", row[c["tariff"]])) > 8:   # 7108.1200 911 처럼 붙어 있는 경우
             key = re.sub(r"\D", "", row[c["tariff"]])[8:11]
+        if key and "key_name" in c and key not in self.key_labels:
+            self.key_labels[key] = row[c["key_name"]].strip()
         if "period" in c:
             p = parse_period(row[c["period"]])
         else:
@@ -140,9 +144,9 @@ class GoldFilter:
         flow = self.spec["flow"]
         if "flow" in c:
             v = row[c["flow"]].strip().lower()
-            if v.startswith(("imp", "ein", "1")):      # import / einfuhr
+            if v in ("i", "m") or v.startswith(("imp", "ein", "1")):      # I / import / einfuhr
                 flow = "M"
-            elif v.startswith(("exp", "aus", "2")):    # export / ausfuhr
+            elif v in ("e", "x", "a") or v.startswith(("exp", "aus", "2")):    # E / export / ausfuhr
                 flow = "X"
         partner = row[c["country"]].strip() if "country" in c else row[c["country_name"]].strip()
         chf = to_number(row[c["chf"]]) or 0.0
@@ -169,6 +173,7 @@ class GoldFilter:
             "lines_read": self.lines,
             "gold_rows": self.kept,
             "rows_with_unreadable_period": self.bad_period,
+            "key_labels": self.key_labels,
         }
 
 

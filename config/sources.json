@@ -17,8 +17,10 @@
       "refresh_old_after_days": 365
     },
     "preview_mode": {
-      "calls_per_run": 800,
+      "calls_per_run": 400,
       "records_per_call_cap": 500,
+      "request_pause_seconds": 2.5,
+      "reporters_per_call": 4,
       "recent_months": 24,
       "commodity_codes": ["7108"],
       "reporters_iso3": [
@@ -32,6 +34,7 @@
   "swiss": {
     "_설명": "스위스 관세청(BAZG) 공개 자료. SwissImpex 대시보드와 같은 원자료다. 주소가 바뀌면 urls 목록 맨 앞에 새 주소를 추가한다.",
     "tariff_prefixes": ["7108"],
+    "start_month": "2012-01",
     "min_days_between_runs": 6,
     "files": [
       {
@@ -79,7 +82,7 @@
     "keys": {
       "911": "광산 금 (채굴)",
       "912": "정련 금 99.5% 이상",
-      "913": "정련 금 99.5% 이상",
+      "913": "정련 금 99.5% 이상, 기타 용도",
       "914": "정련 금 99.5% 미만"
     }
   },

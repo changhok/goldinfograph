@@ -46,6 +46,7 @@ def main() -> int:
     cfg = json.loads((REPO / "config" / "sources.json").read_text(encoding="utf-8"))
     cfg["start_year"] = 2019
     cfg["comtrade"]["request_pause_seconds"] = 0
+    cfg["comtrade"]["preview_mode"]["request_pause_seconds"] = 0
     (OUT / "config" / "sources.json").write_text(json.dumps(cfg, ensure_ascii=False), encoding="utf-8")
     shutil.copytree(REPO / "site", OUT / "site", ignore=shutil.ignore_patterns("data"))
     make_fixtures.make_wgc(OUT / "raw" / "wgc")

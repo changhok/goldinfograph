@@ -7,11 +7,11 @@
       "available": true,
       "has_keys": true,
       "months": [
-        "1988-01",
+        "2012-01",
         "2026-10"
       ],
-      "partners": 186,
-      "unknown_partners": 7
+      "partners": 167,
+      "unknown_partners": 2
     },
     "trade": {
       "available": true,
@@ -24,8 +24,8 @@
       "rows": 2173
     }
   },
-  "data_hash": "632cdfb24b2d",
-  "generated": "2026-11-25T08:36:59Z",
+  "data_hash": "e3a2dc7e27a5",
+  "generated": "2026-11-25T09:17:54Z",
   "sources": {
     "comtrade": {
       "last_run": "2026-11-25T08:34:14Z",
@@ -424,12 +424,7 @@
   "start_year": 2000,
   "unknown_codes": [
     "name:AN",
-    "name:CS",
-    "name:PU",
-    "name:SU",
-    "name:XA",
-    "name:YU",
-    "name:ZR"
+    "name:XA"
   ],
   "wgc_page": "https://www.gold.org/goldhub/data/gold-reserves-by-country"
 }

@@ -42,6 +42,9 @@ class Client:
         self.session = requests.Session()
         self.session.headers["User-Agent"] = "goldinfograph (github actions; monthly gold trade dashboard)"
         self.pause = float(cfg.get("request_pause_seconds", 1.3))
+        if not key:
+            self.pause = float(cfg["preview_mode"].get("request_pause_seconds", self.pause))
+        self.throttled = None
         self.cap = cfg["key_mode" if key else "preview_mode"]["records_per_call_cap"]
 
     def get(self, period: str, reporters: list[int] | None, flows: list[str], cmds: list[str]) -> list[dict]:
@@ -68,12 +71,16 @@ class Client:
                 time.sleep(5 * (attempt + 1))
                 continue
             if r.status_code == 429:
-                wait = min(int(r.headers.get("Retry-After", "20") or 20), 90)
+                wait = min(int(r.headers.get("Retry-After", "20") or 20), 90) + 2
                 if attempt == 3 or self.calls_left <= 0:
                     raise BudgetExhausted()
                 print(f"  호출 제한(429) — {wait}초 대기")
                 time.sleep(wait)
                 continue
+            if r.status_code == 403 and not self.key:
+                # 키 없는 미리보기는 일정량을 쓰면 서버가 403 으로 막는다. 오류가 아니라 '오늘은 여기까지'로 본다.
+                self.throttled = f"HTTP 403: {r.text[:160].strip()}"
+                raise BudgetExhausted()
             if r.status_code in (401, 403):
                 raise PermissionError(
                     f"UN Comtrade 가 요청을 거절했습니다(HTTP {r.status_code}). "
@@ -258,12 +265,13 @@ def main() -> int:
                 prev = state["months"].get(period, {})
                 # 지난 실행이 호출 한도로 중간에 멈췄다면 받은 신고국은 건너뛰고 이어서 받는다
                 already = set(prev.get("reporters_done", [])) if prev.get("mode") == "preview-partial" else set()
-                for rep in reporters:
-                    if rep in already:
-                        continue
-                    rows = normalize(client.get_split(period, [rep], cfg["flows"], cmds))
-                    store.replace(period, rows, reporters={rep})
-                    already.add(rep)
+                pending = [r for r in reporters if r not in already]
+                size = int(mcfg.get("reporters_per_call", 4))
+                for i in range(0, len(pending), size):
+                    group = pending[i:i + size]      # 500건 상한에 걸리면 get_split 이 알아서 더 잘게 나눈다
+                    rows = normalize(client.get_split(period, group, cfg["flows"], cmds))
+                    store.replace(period, rows, reporters=set(group))
+                    already.update(group)
                     state["months"][period] = {"fetched": str(today()), "mode": "preview-partial",
                                                "reporters_done": sorted(already)}
                 rows = {k: 1 for k in store._load(period[:4]) if k[0] == period}
@@ -292,6 +300,9 @@ def main() -> int:
     print(f"  이번 실행: {done}개월 수집, 호출 {client.calls_made}회")
     if remaining:
         msg += f", 남은 작업 {remaining}개월(다음 실행에서 계속)"
+    if client.throttled and not error:
+        msg += " · 무료 미리보기 호출 한도에 걸려 멈췄습니다. 다음 실행에서 이어 받습니다(키를 등록하면 한도가 크게 늘어납니다)"
+        print(f"  서버 응답: {client.throttled}")
     if error:
         update_status("comtrade", False, f"{error} / {msg}", mode=mode, remaining_months=remaining)
         return 0
