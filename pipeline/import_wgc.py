@@ -95,7 +95,10 @@ def extract_tables(rows: list[list], sheet_ctx: str, countries: Countries) -> li
                 names: dict[str, str] = {}
                 unmatched: list[str] = []
                 vals: list[float] = []
-                for r in rows[head_idx + 1:]:
+                # 'Turkey*' 처럼 별표가 붙은 행은 다른 기준의 참고 계열이다. 별표 없는 행을 먼저 읽어 우선시킨다.
+                body = [r for r in rows[head_idx + 1:] if name_col < len(r) and isinstance(r[name_col], str)]
+                body.sort(key=lambda r: "*" in r[name_col])
+                for r in body:
                     if name_col >= len(r) or not isinstance(r[name_col], str) or not r[name_col].strip():
                         continue
                     nums = {ym: to_number(r[c]) for c, ym in cols if c < len(r)}

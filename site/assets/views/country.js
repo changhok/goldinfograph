@@ -52,8 +52,9 @@ export async function render(root, ctx, param) {
       while (last > 0 && (!lv || lv[last] == null) && (!ch || ch[last] == null)) last--;
       const [cur] = latestAt(lv, last, 3);
       const jan = last - (Number(rm[last].slice(5, 7)) - 1);
-      const ytd = lv && lv[last] != null && jan - 1 >= 0 && lv[jan - 1] != null ? lv[last] - lv[jan - 1]
-        : ch ? ch.slice(Math.max(jan, 0), last + 1).reduce((s, v) => s + (v || 0), 0) : null;
+      const chSum = ch ? ch.slice(Math.max(jan, 0), last + 1).filter((v) => v != null) : [];
+      const ytd = chSum.length ? chSum.reduce((s, v) => s + v, 0)
+        : lv && lv[last] != null && jan - 1 >= 0 && lv[jan - 1] != null ? lv[last] - lv[jan - 1] : null;
       const yoy = lv && last >= 12 && lv[last] != null && lv[last - 12] != null ? lv[last] - lv[last - 12] : null;
       const snap = reserves.snapshot[code];
       parts.push(h("div", { class: "tiles" },

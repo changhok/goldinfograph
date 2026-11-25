@@ -16,17 +16,21 @@ export async function render(root, ctx) {
   // ---- 계산
   const level = (c, i) => latestAt(data.level[c], i, 3)[0];
   const mom = (c, i) => (data.change[c] ? data.change[c][i] : null);
+  // 연초 대비: WGC 월간 증감의 그해 누계 (WGC 발표와 같은 방식). 증감 자료가 없으면 전년 말 보유량과의 차이.
   const ytd = (c, i) => {
     const jan = i - (Number(months[i].slice(5, 7)) - 1);          // 그해 1월의 위치
-    const lv = data.level[c];
-    if (lv && lv[i] != null && jan - 1 >= 0 && lv[jan - 1] != null) return lv[i] - lv[jan - 1];
     const ch = data.change[c];
-    if (!ch) return null;
     let s = null;
-    for (let k = Math.max(jan, 0); k <= i; k++) if (ch[k] != null) s = (s || 0) + ch[k];
-    return s;
+    if (ch) for (let k = Math.max(jan, 0); k <= i; k++) if (ch[k] != null) s = (s || 0) + ch[k];
+    if (s != null) return s;
+    const lv = data.level[c];
+    return lv && lv[i] != null && jan - 1 >= 0 && lv[jan - 1] != null ? lv[i] - lv[jan - 1] : null;
   };
+  // 세계 합계: WGC 가 낸 'World' 행이 있으면 그것을, 없으면 표에 실린 곳의 합을 쓴다
   const world = months.map((_, i) => {
+    const w = latestAt(data.level._WLD, i, 0)[0];
+    if (w != null) return Math.round(w * 10) / 10;
+    if (data.level._WLD) return null;
     let s = 0, n = 0;
     for (const c of holders) { const v = latestAt(data.level[c], i, 6)[0]; if (v != null) { s += v; n++; } }
     return n ? Math.round(s * 10) / 10 : null;

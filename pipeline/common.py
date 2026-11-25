@@ -210,6 +210,8 @@ def norm_name(s: str) -> str:
     s = unicodedata.normalize("NFKD", str(s))
     s = "".join(ch for ch in s if not unicodedata.combining(ch)).lower()
     s = s.replace("&", " and ")
+    s = re.sub(r"['\u2019`]", "", s)          # People's → peoples
+    s = re.sub(r"(?<=[a-z.])\s*\d{1,2}\)\s*$", "", s)   # 'Turkey5)' 같은 각주 번호 제거
     s = re.sub(r"\(.*?\)", " ", s)          # 괄호 안 설명 제거
     s = re.sub(r"[^a-z0-9]+", " ", s)
     s = re.sub(r"\b\d+\b", " ", s)          # 각주 번호 제거
@@ -244,6 +246,11 @@ INSTITUTIONS = {
     "cemac": ("_BEAC", "중앙아프리카 국가은행", False),
     "eccb": ("_ECCB", "동카리브 중앙은행", False),
     "eccu": ("_ECCB", "동카리브 중앙은행", False),
+    "banque des etats de lafrique centrale": ("_BEAC", "중앙아프리카 국가은행", False),
+    "state oil fund of the republic of azerbaijan": ("_SOFAZ", "아제르바이잔 국부펀드(SOFAZ)", False),
+    "sofaz": ("_SOFAZ", "아제르바이잔 국부펀드(SOFAZ)", False),
+    "netherlands antilles": ("_ANT", "네덜란드령 안틸레스(옛)", False),
+    "total above": ("_TOT", "표에 실린 국가 합계", True),
     "euro area": ("_EA", "유로 지역 합계", True),
     "euro area incl ecb": ("_EA", "유로 지역 합계", True),
     "euro area including ecb": ("_EA", "유로 지역 합계", True),
@@ -265,6 +272,10 @@ NAME_ALIASES = {
     "china p r": "CHN", "peoples republic of china": "CHN", "china peoples republic of": "CHN",
     "hong kong": "HKG", "china p r hong kong": "HKG", "hong kong sar": "HKG", "hong kong china": "HKG",
     "hong kong sar china": "HKG", "china hong kong sar": "HKG",
+    "hong kong special administrative region peoples republic of china": "HKG",
+    "macao special administrative region peoples republic of china": "MAC",
+    "aruba kingdom of the netherlands": "ABW", "curacao and st maarten": "CUW",
+    "curacao kingdom of the netherlands": "CUW", "sint maarten kingdom of the netherlands": "SXM",
     "macao": "MAC", "macau": "MAC", "china p r macao": "MAC", "macao sar": "MAC", "china macao sar": "MAC",
     "taiwan": "TWN", "taiwan province of china": "TWN", "chinese taipei": "TWN", "other asia nes": "TWN",
     "korea": "KOR", "south korea": "KOR", "korea republic of": "KOR", "korea rep of": "KOR",
@@ -281,7 +292,7 @@ NAME_ALIASES = {
     "yemen": "YEM", "yemen republic of": "YEM", "north macedonia": "MKD", "macedonia fyr": "MKD",
     "macedonia": "MKD", "bolivia": "BOL", "bolivia plurinational state of": "BOL",
     "cote d ivoire": "CIV", "ivory coast": "CIV",
-    "congo dem rep of": "COD", "congo democratic republic of": "COD", "democratic republic of the congo": "COD",
+    "congo dem rep of the": "COD", "congo democratic republic of the": "COD", "congo dem rep of": "COD", "congo democratic republic of": "COD", "democratic republic of the congo": "COD",
     "dr congo": "COD", "congo dem rep": "COD", "congo republic of": "COG", "congo rep of": "COG", "congo": "COG",
     "bahamas": "BHS", "bahamas the": "BHS", "gambia": "GMB", "gambia the": "GMB",
     "brunei": "BRN", "brunei darussalam": "BRN", "cabo verde": "CPV", "cape verde": "CPV",
@@ -303,6 +314,7 @@ NAME_ALIASES = {
     "south sudan": "SSD", "solomon islands": "SLB", "marshall islands": "MHL",
 }
 _STRIP_PHRASES = [
+    "federal democratic republic of", "federal dem rep of", "islamic rep of", "dem rep of", "democratic rep of",
     "islamic republic of", "federal republic of", "democratic republic of", "peoples republic of",
     "republic of", "rep of", "republic", "rep", "kingdom of", "state of", "commonwealth of", "sultanate of",
     "principality of", "grand duchy of", "union of", "federation of", "the",

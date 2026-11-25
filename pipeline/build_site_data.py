@@ -62,35 +62,42 @@ def build_reserves(countries: Countries) -> dict:
         lv.update(lvQ.get(code, {}))
         lv.update(lvM.get(code, {}))
         s = snap.get(code)
-        if s and s.get("asof") and s["asof"] not in lv:
-            lv[s["asof"]] = s["tonnes"]
-        src_points = set(lv)
+        if s and s.get("asof") and not lv:
+            lv[s["asof"]] = s["tonnes"]      # 보유량 표에 없는 곳만 현황표 값을 쓴다 (표마다 집계 기준이 다를 수 있다)
+        src_points = sorted(lv)
         ch = dict(chM.get(code, {}))
         if lv and g_first:
-            # 2순위: 기준점 사이의 빈 달은 '직전 보유량 + 월간 증감'으로 채운다.
-            # 월간 증감표가 다루는 기간 안에서 값이 비어 있는 달은 '변동 없음'으로 본다.
-            known_first = min(lv)
-            for m in months:
-                if m in lv or m < known_first or not (g_first <= m <= g_last):
+            # 2순위: 기준점(분기 말) 사이의 달은 WGC 월간 증감을 따라 채운다.
+            # 증감의 합이 두 기준점의 차이와 다르면(집계 기준 차이·수정) 남는 차이를 달마다 고르게 나눠 다음 기준점에 정확히 닿게 한다.
+            for a, b in zip(src_points, src_points[1:]):
+                gap = month_range(add_months(a, 1), add_months(b, -1)) if add_months(a, 1) < b else []
+                if not gap:
                     continue
-                prev = add_months(m, -1)
-                if prev in lv:
-                    lv[m] = lv[prev] + ch.get(m, 0.0)
+                resid = (lv[b] - lv[a]) - sum(ch.get(m, 0.0) for m in gap + [b])
+                cum = 0.0
+                for k, m in enumerate(gap, 1):
+                    cum += ch.get(m, 0.0)
+                    lv[m] = lv[a] + cum + resid * k / (len(gap) + 1)
                     estimated += 1
-            # 가장 이른 기준점보다 앞선 달은 뒤에서부터 거꾸로 계산한다
-            m = known_first
-            while add_months(m, -1) >= g_first and add_months(m, -1) not in lv:
-                lv[add_months(m, -1)] = lv[m] - ch.get(m, 0.0)
+            # 마지막 기준점 뒤: 증감이 실제로 보고된 달까지만 이어 간다
+            m = src_points[-1]
+            while add_months(m, 1) in ch:
+                lv[add_months(m, 1)] = lv[m] + ch[add_months(m, 1)]
+                m = add_months(m, 1)
+                estimated += 1
+            # 첫 기준점 앞: 뒤에서부터 거꾸로 계산한다
+            m = src_points[0]
+            while m in ch and add_months(m, -1) >= g_first:
+                lv[add_months(m, -1)] = lv[m] - ch[m]
                 m = add_months(m, -1)
                 estimated += 1
         elif lv:
             # 월간 증감표가 아예 없으면 분기 자료 사이의 두 달은 직전 분기 값을 그대로 둔다
+            pts = set(src_points)
             for m in months:
                 p1, p2 = add_months(m, -1), add_months(m, -2)
-                if m not in lv and add_months(m, 1) <= max(lv):
-                    if p1 in src_points:
-                        lv[m] = lv[p1]
-                    elif p2 in src_points and p1 in lv:
+                if m not in lv and add_months(m, 1) <= src_points[-1]:
+                    if p1 in pts or (p2 in pts and p1 in lv):
                         lv[m] = lv[p1]
         # 월간 증감이 없는 달은 보유량의 차이로 계산한다
         for m in months:
