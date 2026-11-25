@@ -1,124 +1,724 @@
 {
-  "mode": "preview",
+  "mode": "key",
   "months": {
+    "201411": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 3740
+    },
+    "201412": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 3734
+    },
+    "201501": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 3970
+    },
+    "201502": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 3973
+    },
+    "201503": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4206
+    },
+    "201504": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4003
+    },
+    "201505": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4074
+    },
+    "201506": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4128
+    },
+    "201507": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4239
+    },
+    "201508": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 3933
+    },
+    "201509": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4069
+    },
+    "201510": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4203
+    },
+    "201511": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4206
+    },
+    "201512": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4095
+    },
+    "201601": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 3939
+    },
+    "201602": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4176
+    },
+    "201603": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4145
+    },
+    "201604": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4128
+    },
+    "201605": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4164
+    },
+    "201606": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4107
+    },
+    "201607": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4011
+    },
+    "201608": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4009
+    },
+    "201609": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4111
+    },
+    "201610": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4268
+    },
+    "201611": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4287
+    },
+    "201612": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4344
+    },
+    "201701": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4304
+    },
+    "201702": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4441
+    },
+    "201703": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4717
+    },
+    "201704": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4356
+    },
+    "201705": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4648
+    },
+    "201706": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4574
+    },
+    "201707": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4473
+    },
+    "201708": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4324
+    },
+    "201709": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4399
+    },
+    "201710": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4441
+    },
+    "201711": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4526
+    },
+    "201712": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4533
+    },
+    "201801": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4445
+    },
+    "201802": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4364
+    },
+    "201803": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4564
+    },
+    "201804": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4419
+    },
+    "201805": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4636
+    },
+    "201806": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4458
+    },
+    "201807": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4454
+    },
+    "201808": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4327
+    },
+    "201809": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4401
+    },
+    "201810": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4606
+    },
+    "201811": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4559
+    },
+    "201812": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4489
+    },
+    "201901": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4517
+    },
+    "201902": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4474
+    },
+    "201903": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4645
+    },
+    "201904": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4567
+    },
+    "201905": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4537
+    },
+    "201906": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4564
+    },
+    "201907": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4620
+    },
+    "201908": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4369
+    },
+    "201909": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4517
+    },
+    "201910": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4674
+    },
+    "201911": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4679
+    },
+    "201912": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4542
+    },
+    "202001": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4252
+    },
+    "202002": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4323
+    },
+    "202003": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4097
+    },
+    "202004": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 3097
+    },
+    "202005": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 3394
+    },
+    "202006": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 3942
+    },
+    "202007": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4083
+    },
+    "202008": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4058
+    },
+    "202009": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4246
+    },
+    "202010": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4259
+    },
+    "202011": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4314
+    },
+    "202012": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4229
+    },
+    "202101": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4065
+    },
+    "202102": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4127
+    },
+    "202103": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4353
+    },
+    "202104": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4370
+    },
+    "202105": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4110
+    },
+    "202106": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4449
+    },
+    "202107": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4342
+    },
+    "202108": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4330
+    },
+    "202109": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4405
+    },
+    "202110": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4573
+    },
+    "202111": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4584
+    },
+    "202112": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4562
+    },
+    "202201": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4500
+    },
+    "202202": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4642
+    },
+    "202203": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 5011
+    },
+    "202204": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4599
+    },
+    "202205": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4701
+    },
+    "202206": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4651
+    },
+    "202207": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4614
+    },
+    "202208": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4658
+    },
+    "202209": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4743
+    },
+    "202210": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4843
+    },
+    "202211": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4877
+    },
+    "202212": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4727
+    },
+    "202301": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4353
+    },
+    "202302": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4391
+    },
+    "202303": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4731
+    },
+    "202304": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4389
+    },
+    "202305": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4686
+    },
+    "202306": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4617
+    },
+    "202307": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4538
+    },
+    "202308": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4448
+    },
+    "202309": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4541
+    },
+    "202310": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4679
+    },
+    "202311": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4641
+    },
+    "202312": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4457
+    },
+    "202401": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4335
+    },
+    "202402": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4520
+    },
+    "202403": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4391
+    },
+    "202404": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4450
+    },
+    "202405": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4454
+    },
+    "202406": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4367
+    },
+    "202407": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4517
+    },
+    "202408": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4340
+    },
+    "202409": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4517
+    },
+    "202410": {
+      "fetched": "2026-11-25",
+      "mode": "key",
+      "rows": 4699
+    },
     "202411": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1142
+      "mode": "key",
+      "rows": 4579
     },
     "202412": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1081
+      "mode": "key",
+      "rows": 4486
     },
     "202501": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1043
+      "mode": "key",
+      "rows": 4267
     },
     "202502": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1069
+      "mode": "key",
+      "rows": 4363
     },
     "202503": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1093
+      "mode": "key",
+      "rows": 4448
     },
     "202504": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1101
+      "mode": "key",
+      "rows": 4402
     },
     "202505": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1079
+      "mode": "key",
+      "rows": 4442
     },
     "202506": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1088
+      "mode": "key",
+      "rows": 4326
     },
     "202507": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1090
+      "mode": "key",
+      "rows": 4478
     },
     "202508": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1023
+      "mode": "key",
+      "rows": 4127
     },
     "202509": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1062
+      "mode": "key",
+      "rows": 4371
     },
     "202510": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1082
+      "mode": "key",
+      "rows": 4426
     },
     "202511": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1107
+      "mode": "key",
+      "rows": 4520
     },
     "202512": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 1074
+      "mode": "key",
+      "rows": 4475
     },
     "202601": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 939
+      "mode": "key",
+      "rows": 3928
     },
     "202602": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 986
+      "mode": "key",
+      "rows": 4108
     },
     "202603": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 998
+      "mode": "key",
+      "rows": 4215
     },
     "202604": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 902
+      "mode": "key",
+      "rows": 3938
     },
     "202605": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 898
+      "mode": "key",
+      "rows": 3662
     },
     "202606": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 828
+      "mode": "key",
+      "rows": 3605
     },
     "202607": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 838
+      "mode": "key",
+      "rows": 3580
     },
     "202608": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 705
+      "mode": "key",
+      "rows": 2908
     },
     "202609": {
       "fetched": "2026-11-25",
-      "mode": "preview",
-      "rows": 234
+      "mode": "key",
+      "rows": 968
     },
     "202610": {
       "fetched": "2026-11-25",
-      "mode": "preview",
+      "mode": "key",
       "rows": 0
     }
   }
