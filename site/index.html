@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>세계 금 지도 — 보유량과 흐름</title>
+  <meta name="description" content="국가별 금 보유량과 월간 증감, 국가 간 금 수출입 흐름을 지도와 그래프로 보여 줍니다. 자료: World Gold Council, UN Comtrade, 스위스 관세청.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M9 8h14l5 16H4z' fill='%23c9921a'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="#reserves">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">세계 금 지도</span>
+    </a>
+    <nav class="tabs" aria-label="화면 선택">
+      <a href="#reserves" data-view="reserves">보유량</a>
+      <a href="#flows" data-view="flows">교역 흐름</a>
+      <a href="#country" data-view="country">국가별</a>
+      <a href="#swiss" data-view="swiss">스위스</a>
+      <a href="#status" data-view="status">자료 현황</a>
+    </nav>
+    <p class="updated" id="updated"></p>
+  </header>
+
+  <main id="view" tabindex="-1">
+    <p class="loading">자료를 불러오는 중입니다…</p>
+  </main>
+
+  <footer class="colophon">
+    <p>자료: World Gold Council(보유량), UN Comtrade(국가 간 교역, HS 7108), 스위스 관세청 BAZG(스위스 교역).
+      수치는 각 기관의 발표를 그대로 옮긴 것이며 발표 이후 수정될 수 있습니다.</p>
+    <p><a href="#status">갱신 상태와 자료 읽는 법</a></p>
+  </footer>
+
+  <script src="vendor/echarts.min.js"></script>
+  <script src="vendor/topojson-client.min.js"></script>
+  <script type="module" src="assets/app.js"></script>
+</body>
+</html>

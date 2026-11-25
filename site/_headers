@@ -1,0 +1,7 @@
+# Cloudflare Pages 응답 헤더: 자료는 짧게, 라이브러리는 길게 캐시한다
+/data/*
+  Cache-Control: public, max-age=300
+/vendor/*
+  Cache-Control: public, max-age=2592000
+/assets/*
+  Cache-Control: public, max-age=600

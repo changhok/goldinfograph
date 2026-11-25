@@ -1,0 +1,27 @@
+{
+  "data": {
+    "reserves": {
+      "available": false
+    },
+    "swiss": {
+      "available": false
+    },
+    "trade": {
+      "available": false
+    }
+  },
+  "data_hash": "008a124b5a54",
+  "generated": "2026-11-25T08:08:06Z",
+  "sources": {
+    "wgc": {
+      "files": [],
+      "last_run": "2026-11-25T08:08:06Z",
+      "last_success": null,
+      "message": "raw/wgc/ 폴더에 엑셀 파일이 없습니다. gold.org 에서 내려받아 올려 주세요.",
+      "ok": false
+    }
+  },
+  "start_year": 2000,
+  "unknown_codes": [],
+  "wgc_page": "https://www.gold.org/goldhub/data/gold-reserves-by-country"
+}
