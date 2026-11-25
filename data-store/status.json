@@ -386,10 +386,210 @@
     }
   },
   "wgc": {
-    "files": [],
-    "last_run": "2026-11-25T08:08:06Z",
-    "last_success": null,
-    "message": "raw/wgc/ 폴더에 엑셀 파일이 없습니다. gold.org 에서 내려받아 올려 주세요.",
-    "ok": false
+    "files": [
+      "Changes_latest_as_of_Nov2026_IFS.xlsx",
+      "Quarterly_gold_and_FX_Reserves_Q3_2026.xlsx",
+      "World_official_gold_holdings_as_of_Nov2026_IFS.xlsx"
+    ],
+    "last_run": "2026-11-25T09:48:27Z",
+    "last_success": "2026-11-25T09:48:27Z",
+    "message": "엑셀 3개에서 표 4개 사용 — 보유량 157개국, 월간 증감 155개국, 현황표 92개국",
+    "ok": true,
+    "report": [
+      {
+        "file": "Changes_latest_as_of_Nov2026_IFS.xlsx",
+        "result": "표를 찾지 못함 (설명·주석 시트로 판단)",
+        "sheet": "Main"
+      },
+      {
+        "file": "Changes_latest_as_of_Nov2026_IFS.xlsx",
+        "result": "표를 찾지 못함 (설명·주석 시트로 판단)",
+        "sheet": "Disclaimer"
+      },
+      {
+        "countries": 155,
+        "file": "Changes_latest_as_of_Nov2026_IFS.xlsx",
+        "freq": "M",
+        "kind": "change",
+        "layout": "가로형",
+        "periods": [
+          "2002-01",
+          "2026-09"
+        ],
+        "result": "사용: 증감 (월간)",
+        "sheet": "Monthly",
+        "unit": "tonnes",
+        "unmatched_names": [
+          "Afghanistan, Islamic Rep. of",
+          "Curacao & St. Maarten",
+          "Ethiopia, The Federal Dem. Rep. of",
+          "Netherlands Antilles",
+          "State Oil Fund of the Republic of Azerbaijan (SOFAZ)",
+          "Timor-Leste, Dem. Rep. of"
+        ]
+      },
+      {
+        "countries": 155,
+        "file": "Changes_latest_as_of_Nov2026_IFS.xlsx",
+        "freq": "A",
+        "kind": "change",
+        "layout": "가로형",
+        "periods": [
+          "2002-12",
+          "2026-12"
+        ],
+        "result": "사용: 증감 (연간)",
+        "sheet": "Annual",
+        "unit": "tonnes",
+        "unmatched_names": [
+          "Afghanistan, Islamic Rep. of",
+          "Curacao & St. Maarten",
+          "Ethiopia, The Federal Dem. Rep. of",
+          "Netherlands Antilles",
+          "State Oil Fund of the Republic of Azerbaijan (SOFAZ)",
+          "Timor-Leste, Dem. Rep. of"
+        ]
+      },
+      {
+        "file": "Quarterly_gold_and_FX_Reserves_Q3_2026.xlsx",
+        "result": "표를 찾지 못함 (설명·주석 시트로 판단)",
+        "sheet": "Disclaimer"
+      },
+      {
+        "file": "Quarterly_gold_and_FX_Reserves_Q3_2026.xlsx",
+        "result": "표를 찾지 못함 (설명·주석 시트로 판단)",
+        "sheet": "Notes"
+      },
+      {
+        "countries": 157,
+        "file": "Quarterly_gold_and_FX_Reserves_Q3_2026.xlsx",
+        "freq": "Q",
+        "kind": "level",
+        "layout": "가로형",
+        "periods": [
+          "2000-03",
+          "2026-09"
+        ],
+        "result": "사용: 보유량 (분기)",
+        "sheet": "Gold (Tonnes)",
+        "unit": "tonnes",
+        "unmatched_names": [
+          "Aruba, Kingdom of the Netherlands",
+          "Banque des États de l'Afrique Centrale (BEAC)",
+          "Hong Kong Special Administrative Region, People's Republic of China",
+          "Macao Special Administrative Region, People's Republic of China",
+          "China, People's Republic of",
+          "Ethiopia, The Federal Democratic Republic of",
+          "Netherlands Antilles",
+          "State Oil Fund of the Republic of Azerbaijan (SOFAZ)",
+          "Total above"
+        ]
+      },
+      {
+        "countries": 157,
+        "file": "Quarterly_gold_and_FX_Reserves_Q3_2026.xlsx",
+        "freq": "Q",
+        "kind": "level",
+        "layout": "가로형",
+        "result": "건너뜀: 톤 단위가 아님",
+        "sheet": "Gold (US$ millions)",
+        "unit": "value",
+        "unmatched_names": [
+          "Aruba, Kingdom of the Netherlands",
+          "Banque des États de l'Afrique Centrale (BEAC)",
+          "Hong Kong Special Administrative Region, People's Republic of China",
+          "Macao Special Administrative Region, People's Republic of China",
+          "China, People's Republic of",
+          "Ethiopia, The Federal Democratic Republic of",
+          "Netherlands Antilles",
+          "State Oil Fund of the Republic of Azerbaijan (SOFAZ)",
+          "Total above"
+        ]
+      },
+      {
+        "countries": 155,
+        "file": "Quarterly_gold_and_FX_Reserves_Q3_2026.xlsx",
+        "freq": "Q",
+        "kind": "level",
+        "layout": "가로형",
+        "result": "건너뜀: 톤 단위가 아님",
+        "sheet": "FX (US$ millions)",
+        "unit": "value",
+        "unmatched_names": [
+          "Aruba, Kingdom of the Netherlands",
+          "Banque des États de l'Afrique Centrale (BEAC)",
+          "Hong Kong Special Administrative Region, People's Republic of China",
+          "Macao Special Administrative Region, People's Republic of China",
+          "China, People's Republic of",
+          "Ethiopia, The Federal Democratic Republic of",
+          "Netherlands Antilles",
+          "Total above"
+        ]
+      },
+      {
+        "countries": 155,
+        "file": "Quarterly_gold_and_FX_Reserves_Q3_2026.xlsx",
+        "freq": "Q",
+        "kind": "level",
+        "layout": "가로형",
+        "result": "건너뜀: 톤 단위가 아님",
+        "sheet": "Total Reserves (US$ millions)",
+        "unit": "value",
+        "unmatched_names": [
+          "Aruba, Kingdom of the Netherlands",
+          "Banque des États de l'Afrique Centrale (BEAC)",
+          "Hong Kong Special Administrative Region, People's Republic of China",
+          "Macao Special Administrative Region, People's Republic of China",
+          "China, People's Republic of",
+          "Ethiopia, The Federal Democratic Republic of",
+          "Netherlands Antilles",
+          "State Oil Fund of the Republic of Azerbaijan (SOFAZ)",
+          "Total above"
+        ]
+      },
+      {
+        "countries": 155,
+        "file": "Quarterly_gold_and_FX_Reserves_Q3_2026.xlsx",
+        "freq": "Q",
+        "kind": "level",
+        "layout": "가로형",
+        "result": "건너뜀: 톤 단위가 아님",
+        "sheet": "Gold % of Total Reserves",
+        "unit": "share",
+        "unmatched_names": [
+          "Aruba, Kingdom of the Netherlands",
+          "Banque des États de l'Afrique Centrale (BEAC)",
+          "Hong Kong Special Administrative Region, People's Republic of China",
+          "Macao Special Administrative Region, People's Republic of China",
+          "China, People's Republic of",
+          "Ethiopia, The Federal Democratic Republic of",
+          "Netherlands Antilles",
+          "State Oil Fund of the Republic of Azerbaijan (SOFAZ)",
+          "Total above"
+        ]
+      },
+      {
+        "countries": 92,
+        "file": "World_official_gold_holdings_as_of_Nov2026_IFS.xlsx",
+        "freq": "S",
+        "kind": "level",
+        "layout": "현황표",
+        "result": "사용: 최신 보유량 현황",
+        "sheet": "PDF",
+        "unit": "tonnes",
+        "unmatched_names": [
+          "Turkey5)",
+          "Azerbaijan, Rep. of8)",
+          "BIS2)",
+          "World6)",
+          "Belarus, Rep. of4)",
+          "WAEMU3)",
+          "Afghanistan, Islamic Rep. of",
+          "Netherlands Antilles",
+          "BEAC9)",
+          "Aruba, Kingdom of the Netherlands"
+        ]
+      }
+    ]
   }
 }
