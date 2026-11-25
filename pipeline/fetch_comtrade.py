@@ -45,11 +45,17 @@ class Client:
         if not key:
             self.pause = float(cfg["preview_mode"].get("request_pause_seconds", self.pause))
         self.throttled = None
+        # 한 번 실행이 너무 길어지지 않게 시간 한도를 둔다. 넘으면 받은 만큼 저장하고 다음 실행에서 이어 받는다.
+        self.deadline = time.monotonic() + 60 * float(cfg.get("max_minutes_per_run", 45))
+        self.timed_out = False
         self.cap = cfg["key_mode" if key else "preview_mode"]["records_per_call_cap"]
 
     def get(self, period: str, reporters: list[int] | None, flows: list[str], cmds: list[str]) -> list[dict]:
         """한 번 호출. 결과가 상한에 걸리면 호출자가 더 잘게 나눠 다시 부른다."""
         if self.calls_left <= 0:
+            raise BudgetExhausted()
+        if time.monotonic() > self.deadline:
+            self.timed_out = True
             raise BudgetExhausted()
         path = "/data/v1/get/C/M/HS" if self.key else "/public/v1/preview/C/M/HS"
         params = {
@@ -280,9 +286,10 @@ def main() -> int:
             if done % 12 == 0:
                 store.save()
                 write_json(STATE, state, pretty=True)
-                print(f"  {done}개월 완료 (최근 처리: {month}, 남은 호출 {client.calls_left})")
+                print(f"  {done}개월 완료 (최근 처리: {month}, 남은 호출 {client.calls_left})", flush=True)
     except BudgetExhausted:
-        print("  이번 실행의 호출 한도를 다 썼습니다. 다음 실행에서 이어서 받습니다.")
+        print("  이번 실행의 시간 한도에 닿았습니다. 다음 실행에서 이어서 받습니다." if client.timed_out
+              else "  이번 실행의 호출 한도를 다 썼습니다. 다음 실행에서 이어서 받습니다.")
     except PermissionError as e:
         error = str(e)
     except Exception as e:  # 한 출처의 실패가 전체 갱신을 막지 않도록 기록만 하고 끝낸다
