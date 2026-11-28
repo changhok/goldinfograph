@@ -8,10 +8,13 @@
       ]
     },
     "production": {
-      "available": false,
-      "countries": 0,
+      "available": true,
+      "countries": 47,
       "world_quarters": 0,
-      "years": null
+      "years": [
+        "2010",
+        "2025"
+      ]
     },
     "reserves": {
       "available": true,
@@ -56,8 +59,8 @@
       "rows": 258364
     }
   },
-  "data_hash": "70b6152e0f6a",
-  "generated": "2026-11-28T06:32:35Z",
+  "data_hash": "84f3ac0c120e",
+  "generated": "2026-11-28T06:45:03Z",
   "sources": {
     "comtrade": {
       "last_run": "2026-11-25T23:47:48Z",
@@ -74,11 +77,34 @@
       "ok": true
     },
     "production": {
-      "files": [],
-      "last_run": "2026-11-28T06:32:32Z",
-      "last_success": null,
-      "message": "raw/production/ 폴더에 엑셀 파일이 없습니다.",
-      "ok": false
+      "files": [
+        "Gold-Mining-Production-Volumes-Data-2025.xlsx"
+      ],
+      "last_run": "2026-11-28T06:44:58Z",
+      "last_success": "2026-11-28T06:44:58Z",
+      "message": "국가별 연간 47곳, 세계 합계 분기 0개·연간 16개",
+      "ok": true,
+      "report": [
+        {
+          "file": "Gold-Mining-Production-Volumes-Data-2025.xlsx",
+          "result": "채굴량 표를 찾지 못함",
+          "sheet": "Disclaimer"
+        },
+        {
+          "file": "Gold-Mining-Production-Volumes-Data-2025.xlsx",
+          "result": "사용: 국가별 연간(47곳)",
+          "sheet": "Mine production data",
+          "unmatched_names": [
+            "Other",
+            "Others",
+            "Sub-total",
+            "Other",
+            "Other",
+            "Other",
+            "Other"
+          ]
+        }
+      ]
     },
     "swiss": {
       "last_run": "2026-11-25T08:36:58Z",
