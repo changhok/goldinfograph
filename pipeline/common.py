@@ -339,6 +339,7 @@ class Countries:
             self.special[code] = {"ko": ko, "aggregate": code == "_WLD"}
         for code, ko, agg in INSTITUTIONS.values():
             self.special[code] = {"ko": ko, "aggregate": agg}
+        self.special["_OTH"] = {"ko": "기타 국가", "aggregate": False}
         self.unknown: dict[str, int] = {}
 
     def from_comtrade(self, code) -> str | None:

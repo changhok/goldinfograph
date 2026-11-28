@@ -53,6 +53,7 @@ def main() -> int:
     names: dict[str, str] = {}
     world: dict[str, dict[str, float]] = {"Q": {}, "A": {}, "M": {}}
     report = []
+    others: dict[str, float] = {}
     for path in files:
         try:
             wb = load_workbook(path, read_only=True, data_only=True)
@@ -71,7 +72,19 @@ def main() -> int:
                 if t.get("freq") != "A" or t.get("unit") not in ("tonnes",) or len(t["data"]) < 8:
                     continue
                 for code, series in t["data"].items():
+                    if countries.special.get(code, {}).get("aggregate"):
+                        continue      # 지역 소계('Total')는 쓰지 않는다
                     by_country.setdefault(code, {}).update({k[:4]: round(v, 2) for k, v in series.items() if v >= 0})
+                # 지역마다 있는 'Other(s)' 행을 모아 '기타'로 둔다 → 국가 합 + 기타 = 세계 합계
+                head = max(range(min(60, len(rows))), key=lambda i: sum(1 for v in rows[i] if v is not None and parse_period(v)))
+                ycols = [(c, parse_period(v)[1][:4]) for c, v in enumerate(rows[head]) if v is not None and parse_period(v) and parse_period(v)[0] == "A"]
+                for r in rows[head + 1:]:
+                    label = next((str(v).strip().lower() for v in r[:3] if isinstance(v, str) and v.strip()), "")
+                    if label in ("other", "others", "other countries", "rest of world"):
+                        for c, y in ycols:
+                            v = to_number(r[c]) if c < len(r) else None
+                            if v is not None:
+                                others[y] = others.get(y, 0.0) + v
                 names.update(t["names"])
                 used.append(f"국가별 연간({len(t['data'])}곳)")
                 report.append({"file": path.name, "sheet": ws.title, "result": "사용: " + ", ".join(used),
@@ -83,6 +96,11 @@ def main() -> int:
             elif used is not None:
                 report.append({"file": path.name, "sheet": ws.title, "result": "채굴량 표를 찾지 못함"})
         wb.close()
+    if not world["A"] and by_country:      # 세계 연간 합계가 따로 없으면 국가 합 + 기타로 만든다
+        for y in sorted({y for sr in by_country.values() for y in sr}):
+            world["A"][f"{y}-12"] = round(sum(sr.get(y, 0.0) for sr in by_country.values()) + others.get(y, 0.0), 1)
+    if others:
+        by_country["_OTH"] = {y: round(v, 2) for y, v in others.items()}
     write_json(OUT, {"countries": by_country, "names": names, "world": world, "files": [p.name for p in files]})
     ok = bool(by_country or world["Q"] or world["A"])
     update_status("production", ok,

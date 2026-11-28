@@ -55,7 +55,8 @@ jobs:
         env:
           COMTRADE_API_KEY: ${{ secrets.COMTRADE_API_KEY }}
           PYTHONUNBUFFERED: "1"   # 진행 상황이 로그에 바로 찍히도록 (중간에 끊겨도 기록이 남는다)
-          SOURCES: ${{ inputs.sources || 'wgc,production,prices,comtrade,swiss' }}
+          # 엑셀을 올렸을 때(push)는 금방 끝나는 것만 처리한다. 오래 걸리는 UN Comtrade·스위스는 정기 실행과 수동 실행에서 받는다.
+          SOURCES: ${{ inputs.sources || (github.event_name == 'push' && 'wgc,production,prices') || 'wgc,production,prices,comtrade,swiss' }}
           FULL: ${{ inputs.full_refresh && '--full-refresh' || '' }}
         run: python pipeline/run_all.py --only "$SOURCES" $FULL
 
@@ -68,6 +69,6 @@ jobs:
             echo "바뀐 자료가 없습니다."
           else
             git commit -m "자료 갱신 $(date -u +%F)"
-            git pull --rebase --autostash
+            git pull --rebase --autostash -X theirs   # 그사이 다른 변경이 있어도 이번에 만든 자료를 우선해 합친다
             git push
           fi
