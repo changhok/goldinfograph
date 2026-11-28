@@ -330,13 +330,31 @@ def build_prices(cfg: dict) -> dict:
     return {"available": bool(months), "months": [months[0], months[-1]] if months else None}
 
 
+# ================================================================ 채굴량 (WGC)
+def build_production(countries: Countries) -> dict:
+    t = read_json(STORE / "wgc" / "production.json") or {"countries": {}, "world": {"Q": {}, "A": {}, "M": {}}}
+    years = sorted({y for s in t["countries"].values() for y in s})
+    agg = [c for c in t["countries"] if countries.special.get(c, {}).get("aggregate")]
+    wq = sorted(t["world"]["Q"].items())
+    wa = sorted(t["world"]["A"].items())
+    write_json(SITE_DATA / "production.json", {
+        "years": years,
+        "countries": {c: [s.get(y) for y in years] for c, s in sorted(t["countries"].items())},
+        "aggregates": agg,
+        "world_q": {"periods": [k for k, _ in wq], "t": [v for _, v in wq]},
+        "world_a": {"years": [k[:4] for k, _ in wa], "t": [v for _, v in wa]},
+    })
+    return {"available": bool(years or wq or wa), "years": [years[0], years[-1]] if years else None,
+            "countries": len(t["countries"]) - len(agg), "world_quarters": len(wq)}
+
+
 def main() -> int:
     cfg = load_config()
     countries = Countries()
     SITE_DATA.mkdir(parents=True, exist_ok=True)
 
     info = {"reserves": build_reserves(countries), "trade": build_trade(countries, cfg),
-            "swiss": build_swiss(countries, cfg), "prices": build_prices(cfg)}
+            "swiss": build_swiss(countries, cfg), "prices": build_prices(cfg), "production": build_production(countries)}
 
     table = {c["iso3"]: {"ko": c["ko"], "en": c["en"], "lat": round(c["lat"], 2), "lon": round(c["lon"], 2),
                          "num": f"{c['m49']:03d}" if c.get("m49") is not None else None}

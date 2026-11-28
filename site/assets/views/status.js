@@ -29,6 +29,8 @@ export async function render(root, ctx) {
           h("span", { class: "muted" }, " Changes · Quarterly · World official gold holdings 세 파일")),
         h("li", {}, h("a", { class: "bigbtn", href: UPLOAD_URL, target: "_blank", rel: "noopener" }, "② 올리는 화면 열기"),
           h("span", { class: "muted" }, " 열린 화면에 파일을 끌어다 놓고 초록색 Commit changes 버튼을 누릅니다")),
+        h("li", {}, h("a", { class: "bigbtn", href: UPLOAD_URL.replace("raw/wgc", "raw/production"), target: "_blank", rel: "noopener" }, "채굴량 엑셀 올리는 화면 열기"),
+          h("span", { class: "muted" }, ` 국가별 연간 생산량·분기별 세계 광산 생산량 (지금: ${(S.production && S.production.message) || "아직 없음"})`)),
         h("li", {}, "3~5분 뒤 이 화면을 새로 고침 하면 아래 ‘올린 파일’과 ‘보유 기간’이 바뀝니다."))),
     h("div", { class: "status stack" },
       section("금 보유량 — World Gold Council 엑셀", S.wgc, [

@@ -7,6 +7,12 @@
         "2026-10"
       ]
     },
+    "production": {
+      "available": false,
+      "countries": 0,
+      "world_quarters": 0,
+      "years": null
+    },
     "reserves": {
       "available": true,
       "change_months": [
@@ -50,8 +56,8 @@
       "rows": 258364
     }
   },
-  "data_hash": "7a590ee84ec9",
-  "generated": "2026-11-25T23:47:54Z",
+  "data_hash": "70b6152e0f6a",
+  "generated": "2026-11-28T06:32:35Z",
   "sources": {
     "comtrade": {
       "last_run": "2026-11-25T23:47:48Z",
@@ -66,6 +72,13 @@
       "last_success": "2026-11-25T23:21:54Z",
       "message": "월평균 금 가격 1950-01 ~ 2026-10 (922개월)",
       "ok": true
+    },
+    "production": {
+      "files": [],
+      "last_run": "2026-11-28T06:32:32Z",
+      "last_success": null,
+      "message": "raw/production/ 폴더에 엑셀 파일이 없습니다.",
+      "ok": false
     },
     "swiss": {
       "last_run": "2026-11-25T08:36:58Z",

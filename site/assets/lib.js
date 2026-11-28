@@ -96,16 +96,16 @@ const ICON = {
 };
 
 // 월 선택 막대: 이전/다음 달, 재생, 끌어서 이동
-export function timeline(months, index, onChange) {
+export function timeline(months, index, onChange, label = fmt.month, shortLabel = fmt.monthShort, names = ["이전 달", "다음 달", "기준 월"]) {
   let i = Math.max(0, Math.min(index, months.length - 1));
   let timer = null;
-  const when = h("span", { class: "when", "aria-live": "polite" }, fmt.month(months[i]));
-  const range = h("input", { type: "range", min: 0, max: months.length - 1, value: i, "aria-label": "기준 월" });
+  const when = h("span", { class: "when", "aria-live": "polite" }, label(months[i]));
+  const range = h("input", { type: "range", min: 0, max: months.length - 1, value: i, "aria-label": names[2] });
   const playBtn = h("button", { class: "icon-btn", type: "button", "aria-label": "재생", html: ICON.play });
   const set = (n, fire = true) => {
     i = Math.max(0, Math.min(n, months.length - 1));
     range.value = i;
-    when.textContent = fmt.month(months[i]);
+    when.textContent = label(months[i]);
     if (fire) onChange(i);
   };
   const stop = () => { clearInterval(timer); timer = null; playBtn.innerHTML = ICON.play; playBtn.setAttribute("aria-label", "재생"); };
@@ -118,11 +118,11 @@ export function timeline(months, index, onChange) {
   playBtn.addEventListener("click", () => (timer ? stop() : play()));
   const el = h("div", { class: "timeline" },
     playBtn,
-    h("button", { class: "icon-btn", type: "button", "aria-label": "이전 달", html: ICON.prev, onclick: () => { stop(); set(i - 1); } }),
+    h("button", { class: "icon-btn", type: "button", "aria-label": names[0], html: ICON.prev, onclick: () => { stop(); set(i - 1); } }),
     when,
-    h("button", { class: "icon-btn", type: "button", "aria-label": "다음 달", html: ICON.next, onclick: () => { stop(); set(i + 1); } }),
+    h("button", { class: "icon-btn", type: "button", "aria-label": names[1], html: ICON.next, onclick: () => { stop(); set(i + 1); } }),
     range,
-    h("span", { class: "muted num" }, `${fmt.monthShort(months[0])} – ${fmt.monthShort(months[months.length - 1])}`));
+    h("span", { class: "muted num" }, `${shortLabel(months[0])} – ${shortLabel(months[months.length - 1])}`));
   return { el, get: () => i, set, stop };
 }
 

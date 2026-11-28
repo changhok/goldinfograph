@@ -19,12 +19,13 @@ STEPS = {
     "comtrade": ["fetch_comtrade.py"],
     "swiss": ["fetch_swiss.py"],
     "prices": ["fetch_prices.py"],
+    "production": ["import_production.py"],
 }
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--only", default="wgc,prices,comtrade,swiss", help="쉼표로 구분한 출처 (wgc, prices, comtrade, swiss, build)")
+    ap.add_argument("--only", default="wgc,production,prices,comtrade,swiss", help="쉼표로 구분한 출처 (wgc, production, prices, comtrade, swiss, build)")
     ap.add_argument("--full-refresh", action="store_true", help="이미 받은 자료도 처음부터 다시 받는다")
     args = ap.parse_args()
     wanted = [s.strip() for s in args.only.split(",") if s.strip()]

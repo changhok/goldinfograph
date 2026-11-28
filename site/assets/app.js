@@ -7,6 +7,7 @@ const VIEWS = {
   flows: () => import("./views/flows.js"),
   country: () => import("./views/country.js"),
   swiss: () => import("./views/swiss.js"),
+  production: () => import("./views/production.js"),
   status: () => import("./views/status.js"),
 };
 

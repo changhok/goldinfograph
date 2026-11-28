@@ -13,6 +13,13 @@
     "message": "월평균 금 가격 1950-01 ~ 2026-10 (922개월)",
     "ok": true
   },
+  "production": {
+    "files": [],
+    "last_run": "2026-11-28T06:32:32Z",
+    "last_success": null,
+    "message": "raw/production/ 폴더에 엑셀 파일이 없습니다.",
+    "ok": false
+  },
   "swiss": {
     "last_run": "2026-11-25T08:36:58Z",
     "last_success": "2026-11-25T08:36:58Z",
